@@ -22,15 +22,15 @@
                     <div>
                         <ul class="mt-6 leading-10">
                             <li class="relative px-2 py-1 ">
-                                <a class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
-                                   href=" #">
+                                <inertia-link class="inline-flex items-center w-full text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-green-500"
+                                   :href="route('dashboard')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                          viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                                     </svg>
                                     <span class="ml-4">DASHBOARD</span>
-                                </a>
+                                </inertia-link>
                             </li>
                             <li class="relative px-2 py-1">
                                 <div class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer">
@@ -44,7 +44,7 @@
                                 </div>
                             </li>
                             <li class="relative px-2 py-1">
-                                <div class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer">
+                                <inertia-link :href="route('create.task')" class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer">
                                     <span
                                         class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,7 +52,7 @@
                                     </svg>
                                         <span class="ml-4">CREATE TASK</span>
                                     </span>
-                                </div>
+                                </inertia-link>
                             </li>
                             <li class="relative px-2 py-1">
                                 <div class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer">
@@ -75,6 +75,16 @@
                                         <span class="ml-4">CREATE EVENT</span>
                                     </span>
                                 </div>
+                            </li>
+                            <li class="relative px-2 py-1">
+                                <inertia-link :href="route('profile.show')" class="inline-flex items-center justify-between w-full text-base font-semibold transition-colors duration-150 text-gray-500  hover:text-yellow-400 cursor-pointer">
+                                    <span class="inline-flex items-center  text-sm font-semibold text-white hover:text-green-400">
+                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                                    </svg>
+                                        <span class="ml-4">PROFILE</span>
+                                    </span>
+                                </inertia-link>
                             </li>
                         </ul>
                     </div>

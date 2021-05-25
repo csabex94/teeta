@@ -1,8 +1,5 @@
 <template>
     <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
 
         <jet-validation-errors class="mb-4" />
 
@@ -11,6 +8,11 @@
         </div>
 
         <form @submit.prevent="submit">
+            <div class="flex items-center my-5 flex-col justify-center">
+                <img class="rounded-full h-16 w-16" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="user avatar" />
+                <h1 class="text-3xl mt-5 text-gray-600 font-semibold">Login to Teeta</h1>
+            </div>
+
             <div>
                 <jet-label for="email" value="Email" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
@@ -26,12 +28,16 @@
                     <jet-checkbox name="remember" v-model:checked="form.remember" />
                     <span class="ml-2 text-sm text-gray-600">Remember me</span>
                 </label>
+                <inertia-link v-if="canResetPassword" :href="route('password.request')" class="underline mt-2 block text-sm text-gray-600 hover:text-gray-900">
+                    Forgot your password?
+                </inertia-link>
+                <inertia-link  :href="route('register')" class="underline mt-2 block text-sm text-gray-600 hover:text-gray-900">
+                    Don't have a account?
+                </inertia-link>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <inertia-link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
-                </inertia-link>
+
 
                 <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in

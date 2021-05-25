@@ -10,7 +10,7 @@
 
         <template #form>
             <!-- Profile Photo -->
-            <div class="col-span-6 sm:col-span-4" v-if="$page.props.jetstream.managesProfilePhotos">
+            <div class="col-span-6" v-if="$page.props.jetstream.managesProfilePhotos">
                 <!-- Profile Photo File Input -->
                 <input type="file" class="hidden"
                             ref="photo"
@@ -42,14 +42,14 @@
             </div>
 
             <!-- Name -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6">
                 <jet-label for="name" value="Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autocomplete="name" />
                 <jet-input-error :message="form.errors.name" class="mt-2" />
             </div>
 
             <!-- Email -->
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6">
                 <jet-label for="email" value="Email" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
