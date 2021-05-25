@@ -20,12 +20,12 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" v-show="! photoPreview">
-                    <img :src="user.profile_photo_url" :alt="user.name" class="rounded-full h-20 w-20 object-cover">
+                    <img :src="returnProfilePhoto()" :alt="user.name" class="object-cover w-20 h-20 rounded-full">
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" v-show="photoPreview">
-                    <span class="block rounded-full w-20 h-20"
+                    <span class="block w-20 h-20 rounded-full"
                           :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
                     </span>
                 </div>
@@ -44,26 +44,25 @@
             <!-- Name -->
             <div class="col-span-6">
                 <jet-label for="name" value="Name" />
-                <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" autocomplete="name" />
+                <jet-input id="name" type="text" class="block w-full mt-1" v-model="form.name" autocomplete="name" />
                 <jet-input-error :message="form.errors.name" class="mt-2" />
             </div>
 
             <!-- Email -->
             <div class="col-span-6">
                 <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
+                <jet-input id="email" type="email" class="block w-full mt-1" v-model="form.email" />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
             </div>
         </template>
 
         <template #actions>
-            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                Saved.
-            </jet-action-message>
-
             <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 Save
             </jet-button>
+               <jet-action-message :on="form.recentlySuccessful" class="mr-3">
+                Saved.
+            </jet-action-message>
         </template>
     </jet-form-section>
 </template>
@@ -149,6 +148,13 @@
                     this.$refs.photo.value = null;
                 }
             },
+            returnProfilePhoto() {
+                if (this.$page.props.user.profile_photo_path) {
+                    return "/storage/"+this.$page.props.user.profile_photo_path
+                } else {
+                    return this.$page.props.user.profile_photo_url
+                }
+            }
         },
     }
 </script>
