@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,18 +18,15 @@ use Inertia\Inertia;
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
-    Route::get('/', function () {
-        return Inertia::render('Dashboard', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/create-task', function() {
        return Inertia::render('CreateTask');
     })->name('create.task');
 
+    Route::post('/create-task', [TaskController::class, 'store'])->name('create.task.post');
+
+    Route::delete('/delete-task', [TaskController::class, 'deleteTask'])->name('delete.task');
+    Route::put('/complete-task', [TaskController::class, 'completeTask'])->name('complete.task');
 });
 
