@@ -24,9 +24,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'birthday'
     ];
 
     /**
@@ -39,6 +41,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'is_admin'
     ];
 
     /**
@@ -48,6 +51,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birthday' => 'datetime'
     ];
 
     /**
@@ -58,4 +62,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function events() {
+        return $this->hasMany(Event::class);
+    }
 }

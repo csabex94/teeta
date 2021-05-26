@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventsController;
 use Inertia\Inertia;
 
 /*
@@ -29,6 +30,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/create-task', function() {
        return Inertia::render('CreateTask');
     })->name('create.task');
+
+    Route::get('/events', function() {
+        return Inertia::render('Events/Show');
+    })->name('events.show');
+    
+    Route::get('/events/create', function() {
+        return Inertia::render('Events/Create');
+    })->name('events.create');
+
+    Route::post('/events/store', [EventsController::class, 'store'])->name('events.store');
 
 });
 
