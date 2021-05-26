@@ -158,8 +158,3 @@
     }
 </script>
 
-<style>
-    .height {
-        min-height: 800px;
-    }
-</style>
