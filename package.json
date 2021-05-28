@@ -27,6 +27,9 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
-        "vue-flatpickr-component": "^9.0.3"
+        "primeicons": "^4.1.0",
+        "primevue": "^3.3.5",
+        "vue-flatpickr-component": "^9.0.3",
+        "vuejs-datatable": "^2.0.0-alpha.7"
     }
 }

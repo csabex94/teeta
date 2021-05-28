@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventsController;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 /*
@@ -20,24 +20,23 @@ use Inertia\Inertia;
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
+    //Tasks
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
     Route::get('/create-task', function() {
        return Inertia::render('CreateTask');
     })->name('create.task');
+    Route::post('/create-task', [TaskController::class, 'store'])->name('create.task.post');
+    Route::put('/update-task', [TaskController::class, 'updateTask'])->name('update.task');
+    Route::delete('/delete-task', [TaskController::class, 'deleteTask'])->name('delete.task');
+    Route::put('/complete-task', [TaskController::class, 'completeTask'])->name('complete.task');
 
-    Route::get('/events', function() {
-        return Inertia::render('Events/Show');
-    })->name('events.show');
+    //Events
+    Route::get('/events', [EventsController::class, 'show'])->name('events.show');
     
-    Route::get('/events/create', function() {
-        return Inertia::render('Events/Create');
-    })->name('events.create');
+    Route::get('/events/create', [EventsController::class, 'create'])->name('events.create');
 
     Route::post('/events/store', [EventsController::class, 'store'])->name('events.store');
 
-    Route::post('/create-task', [TaskController::class, 'store'])->name('create.task.post');
-
-    Route::delete('/delete-task', [TaskController::class, 'deleteTask'])->name('delete.task');
-    Route::put('/complete-task', [TaskController::class, 'completeTask'])->name('complete.task');
+   
 });
 

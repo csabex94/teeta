@@ -33,7 +33,7 @@
                                 </inertia-link>
                             </li>
                             <li class="relative px-2 py-1">
-                                <div class="inline-flex items-center justify-between w-full text-base font-semibold text-gray-500 transition-colors duration-150 cursor-pointer hover:text-yellow-400">
+                                <inertia-link :href="route('tasks')" class="inline-flex items-center justify-between w-full text-base font-semibold text-gray-500 transition-colors duration-150 cursor-pointer hover:text-yellow-400">
                                     <span
                                         class="inline-flex items-center text-sm font-semibold text-white hover:text-green-400">
                                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -41,7 +41,7 @@
                                         </svg>
                                         <span class="ml-4">TASKS</span>
                                     </span>
-                                </div>
+                                </inertia-link>
                             </li>
                             <li class="relative px-2 py-1">
                                 <inertia-link :href="route('create.task')" class="inline-flex items-center justify-between w-full text-base font-semibold text-gray-500 transition-colors duration-150 cursor-pointer hover:text-yellow-400">

@@ -17,7 +17,7 @@ class EventsController extends Controller {
 
     public function show() {
         return Inertia::render('Events/Show', [
-            'events' => Event::where('user_id', Auth::id())
+            'events' => Event::where('user_id', Auth::id())->orderBy('date', 'asc')->get()
         ]);
     }
 
