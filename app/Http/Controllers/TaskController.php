@@ -94,6 +94,7 @@ class TaskController extends Controller
             $taskToUpdate->remind_before_option = NULL;
             $taskToUpdate->remind_before_value = NULL;
             $taskToUpdate->spec_date = NULL;
+            $taskToUpdate->spec_time = NULL;
             $taskToUpdate->daily = 1;
         } else {
             $taskToUpdate->daily = 0;
@@ -119,5 +120,15 @@ class TaskController extends Controller
         $taskToUpdate->save();
 
         return redirect()->back()->with(['tasks' => Task::where('user_id', auth()->user()->id)->get()]);
+    }
+
+    public function completeTask(Request $request)
+    {
+        $taskToComplete = Task::where([['id', $request->taskId], ['user_id', auth()->user()->id]])->first();
+        $taskToComplete->completed = 1;
+        $taskToComplete->completed_at = Carbon::now();
+        $taskToComplete->save();
+
+        return redirect()->back();
     }
 }

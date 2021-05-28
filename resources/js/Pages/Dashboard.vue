@@ -1,9 +1,12 @@
 <template>
     <app-layout>
         <template #content>
-            <div class="w-full grid grid-cols-2 gap-4">
-                <today-tasks :tasks="tasks" />
-                <upcoming-tasks :upcomingTasks="upcomingTasks" />
+            <div>
+                <dashboard-calendar />
+                <div class="w-full grid grid-cols-2 gap-4">
+                    <today-tasks :tasks="tasks" />
+                    <upcoming-tasks :upcomingTasks="upcomingTasks" />
+                </div>
             </div>
         </template>
     </app-layout>
@@ -12,8 +15,10 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     import JetCheckbox from '@/Jetstream/Checkbox';
+
     import TodayTasks from '@/Components/TodayTasks';
     import UpcomingTasks from "@/Components/UpcomingTasks";
+    import DashboardCalendar from "@/Components/DashboardCalendar";
     import moment from 'moment';
 
     export default {
@@ -21,7 +26,8 @@
             AppLayout,
             JetCheckbox,
             TodayTasks,
-            UpcomingTasks
+            UpcomingTasks,
+            DashboardCalendar
         },
         props: {
           tasks: Array,
@@ -36,6 +42,6 @@
         mounted() {
             this.currentMonth = moment.months()[moment().month()];
             this.months = moment.months();
-        },
+        }
     }
 </script>

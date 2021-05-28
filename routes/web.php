@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::delete('/delete-task', [TaskController::class, 'deleteTask'])->name('delete.task');
     // Update Task
     Route::put('/update-task', [TaskController::class, 'updateTask'])->name('update.task');
+    // Complete Task
+    Route::put('/complete-task', [TaskController::class, 'completeTask'])->name('complete.task');
 
     // Tasks Page
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
