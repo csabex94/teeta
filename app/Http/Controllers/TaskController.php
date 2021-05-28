@@ -56,8 +56,6 @@ class TaskController extends Controller
             $newTask->spec_date = $request->spec_date;
         }
 
-
-
         if ($request->spec_time) {
             $newTask->spec_time = $request->spec_time;
         }
@@ -139,48 +137,4 @@ class TaskController extends Controller
 
     }
 
-    public function updateTask(Request $request)
-    {
-        $validData = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'daily' => 'required|boolean',
-            'push_email' => 'required|boolean'
-        ]);
-        $taskToUpdate = Task::where('id', $request->taskId)->first();
-
-        $taskToUpdate->title = $validData['title'];
-        $taskToUpdate->description = $validData['description'];
-        $taskToUpdate->push_email = $validData['push_email'];
-
-        if ($validData['daily'] == true || $validData['daily'] == 1) {
-            $taskToUpdate->remind_before_option = NULL;
-            $taskToUpdate->remind_before_value = NULL;
-            $taskToUpdate->spec_date = NULL;
-            $taskToUpdate->daily = 1;
-        } else {
-            $taskToUpdate->daily = 0;
-            if ($request->remind_before_option && $request->remind_before_value) {
-                $taskToUpdate->remind_before_option = $request->remind_before_option;
-                $taskToUpdate->remind_before_value = $request->remind_before_value;
-            } else {
-                $taskToUpdate->remind_before_option = NULL;
-                $taskToUpdate->remind_before_value = NULL;
-            }
-            if ($request->spec_date) {
-                $taskToUpdate->spec_date = $request->spec_date;
-            } else {
-                $taskToUpdate->spec_date = NULL;
-            }
-
-            if ($request->spec_time) {
-                $taskToUpdate->spec_time = $request->spec_time;
-            } else {
-                $taskToUpdate->spec_time = NULL;
-            }
-        }
-        $taskToUpdate->save();
-
-        return redirect()->back()->with(['tasks' => Task::where('user_id', auth()->user()->id)->get()]);
-    }
 }

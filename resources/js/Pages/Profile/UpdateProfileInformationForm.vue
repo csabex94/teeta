@@ -38,7 +38,7 @@
                     Remove Photo
                 </jet-secondary-button>
 
-                <jet-input-error :message="form.errors.photo" class="mt-2" />
+                <jet-input-error :message="form.errors.profile_photo_path" class="mt-2" />
             </div>
 
             <!-- First Name -->

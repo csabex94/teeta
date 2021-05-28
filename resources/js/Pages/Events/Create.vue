@@ -34,11 +34,17 @@
                         <jet-input-error :message="form.errors.title" class="mt-2" /> 
                     </div>
 
-
-                    <div class="col-span-6">
-                        <jet-label for="date" value="Select Date" />
-                        <jet-input id="date" type="date" class="block w-full mt-1" v-model="form.date" />
-                        <!-- <jet-input-error :message="form.errors.date" class="mt-2" /> -->
+                    <div class="col-span-6 mt-5 grid grid-cols-2 gap-8 relative">
+                        <div class="relative w-full">
+                            <jet-label for="date" value="Select Date" />
+                            <jet-input id="date" type="date" class="block w-full mt-1" v-model="form.date" />
+                            <!-- <jet-input-error :message="form.errors.date" class="mt-2" /> -->
+                        </div>
+                        <div class="relative w-full">
+                            <jet-label for="spec_time" value="Select Time" />
+                            <jet-input id="spec_time" type="time" class="block w-full mt-1" v-model="form.spec_time" />
+                            <!-- <jet-input-error :message="form.errors.date" class="mt-2" /> -->
+                        </div>
                     </div>
 
                 </template>
