@@ -158,7 +158,7 @@
                 if (this.$page.props.user.profile_photo_path) {
                     return "/storage/"+this.$page.props.user.profile_photo_path
                 } else {
-                    return this.$page.props.user.profile_photo_url
+                    return this.$page.props.user.profile_photo_path
                 }
             }
         }

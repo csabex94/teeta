@@ -6,8 +6,8 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class EventsController extends Controller {
 
@@ -15,9 +15,24 @@ class EventsController extends Controller {
         
     }
 
-    public function show() {
+    public function show(Request $request) {
+        if (!$request->date) {
+            $events = Event::where([
+                ['user_id', auth()->user()->id],
+                ['title', 'LIKE', "%$request->search%"],
+            ])->limit(20)->get();
+        } else {
+            $next = Carbon::parse($request->date)->addDay(1);
+            $events = Event::where([
+                ['user_id', auth()->user()->id],
+                ['title', 'LIKE', "%$request->search%"],
+                ['date', '>=' ,$request->date],
+                ['date', '<=' ,$next]
+            ])->get();
+        }
+
         return Inertia::render('Events/Show', [
-            'events' => Event::where('user_id', Auth::id())->orderBy('date', 'asc')->get()
+            'events' => $events
         ]);
     }
 
@@ -29,7 +44,8 @@ class EventsController extends Controller {
         $validated = $request->validate([
             'title' => ['required', 'max:50'],
             'description' => ['required'],
-            'date' => ['required', 'date']
+            'date' => ['required', 'date'],
+            'spec_time' => ['required']
         ]);
 
         if($validated) {
@@ -37,6 +53,7 @@ class EventsController extends Controller {
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'date' => $request->input('date'),
+                'spec_time' => $request->input('spec_time'),
                 'user_id' => Auth::id()
             ]);
         }
@@ -51,26 +68,35 @@ class EventsController extends Controller {
                 'id' => $event->id,
                 'title' => $event->title,
                 'description' => $event->description,
-                'date' => $event->date
+                'date' => $event->date,
+                'spec_time' => $event->spec_time
             ]
         ]);
     }
 
-    public function update(Event $event) {
+    public function updateEvent(Request $request) {
+        $validate = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'date' => 'required',
+            'spec_time' => 'required'
+        ]);
 
+        $eventToUpdate = Event::find($request->eventId);
 
-        return Redirect::back()->with('success', 'Event updated.');
+        $eventToUpdate->title = $validate['title']; 
+        $eventToUpdate->description = $validate['description'];
+        $eventToUpdate->date = $validate['date'];
+        $eventToUpdate->spec_time = $validate['spec_time'];
+
+        $eventToUpdate->save();
+
+        return Redirect::back()->with(['events' => Event::where('user_id', auth()->user()->id)->get()]);
     }
 
-    public function destroy(Event $event) {
-        $event->delete();
+    public function deleteEvent(Request $request) {
+        Event::find($request->eventId)->delete();
 
-        return Redirect::back()->with('success', 'Event deleted.');
-    }
-
-    public function restore(Event $event) {
-        $event->restore();
-
-        return Redirect::back()->with('success', 'Event restored.');
+        return Redirect::back()->with(['events' => Event::where('user_id', auth()->user()->id)->get()]);
     }
 }

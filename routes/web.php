@@ -32,10 +32,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
     //Events
     Route::get('/events', [EventsController::class, 'show'])->name('events.show');
-    
     Route::get('/events/create', [EventsController::class, 'create'])->name('events.create');
-
     Route::post('/events/store', [EventsController::class, 'store'])->name('events.store');
+    Route::post('/events/update', [EventsController::class, 'update'])->name('events.update');
+    Route::delete('/events/delete', [EventsController::class, 'delete'])->name('events.delete');
 
    
 });
