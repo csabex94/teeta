@@ -40,6 +40,7 @@
                         <div class="flex items-center text-sm font-medium text-gray-700">Email<jet-checkbox v-model="form.push_email" class="ml-2" /></div>
                     </div>
 
+
                     <div v-if="!form.daily" class="col-span-6 relative">
                         <flat-pickr
                             v-model="form.spec_date"
@@ -61,7 +62,44 @@
                         </svg>
                     </div>
 
-                    <div v-if="showRemindOptions" class="col-span-6 flex items-center">
+                    <div v-if="!form.daily" class="col-span-6 grid grid-cols-2 gap-8">
+                        <div class="relative w-full">
+                            <flat-pickr
+                                v-model="form.spec_date"
+                                :config="flatPickrConfig"
+                                class="border-gray-300 cursor-pointer w-full focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                placeholder="Specify date"
+                                name="spec_date"
+                                ref="specDate"
+                            />
+
+                            <svg
+                                @click="openCalendarOnIconClick"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6 cursor-pointer absolute text-gray-500 right-2 bottom-3"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div class="relative w-full">
+                            <flat-pickr
+                                v-model="form.spec_time"
+                                :config="flatPickrConfigTime"
+                                class="border-gray-300 cursor-pointer w-full focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                placeholder="Specify time"
+                                name="spec_time"
+                                ref="specTime"
+                            />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer absolute text-gray-500 right-2 bottom-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div v-if="showRemindOptions" class="col-span-6 grid grid-cols-2 gap-8">
+
                         <select
                             v-model="form.remind_before_option"
                             class="text-gray-500 w-full border-gray-300 cursor-pointer w-full focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm appearance-none">
@@ -73,9 +111,10 @@
                             <option value="months">Months</option>
                         </select>
 
+
                         <jet-input
                             type="number"
-                            class="w-full ml-2"
+                            class="w-full"
                             v-model="form.remind_before_value"
                             :placeholder="getBeforeValuePlaceholder()"
                             v-if="form.remind_before_option === 'minutes' || form.remind_before_option === 'hours' || form.remind_before_option === 'days' || form.remind_before_option === 'weeks' || form.remind_before_option === 'months'"
@@ -138,10 +177,14 @@ export default {
             }),
             showRemindOptions: false,
             flatPickrConfig: {
-                altFormat: 'M j, Y H:i:S',
+                altFormat: 'M j, Y',
                 altInput: true,
-                dateFormat: 'Y-m-d H:i:S',
-                enableTime: true
+                dateFormat: 'Y-m-d',
+            },
+            flatPickrConfigTime: {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
             },
         }
     },

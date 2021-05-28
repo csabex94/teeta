@@ -22,6 +22,10 @@ class CreateTasksTable extends Migration
             $table->tinyInteger('push_email')->default(0);
             $table->tinyInteger('completed')->default(0);
             $table->dateTime('spec_date')->nullable();
+<<<<<<< HEAD
+=======
+            $table->time('spec_time')->nullable();
+>>>>>>> inertia2
             $table->string('remind_before_value')->nullable();
             $table->string('remind_before_option')->nullable();
             $table->dateTime('completed_at')->nullable();

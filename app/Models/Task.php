@@ -5,7 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model {
+
+
+class Task extends Model
+{
     use HasFactory;
 
     protected $fillable = [
@@ -16,6 +19,7 @@ class Task extends Model {
         'push_email',
         'completed',
         'spec_date',
+        'spec_time',
         'remind_before_value',
         'remind_before_option'
     ];
@@ -23,4 +27,5 @@ class Task extends Model {
     public function user() {
         return $this->belongsTo(Event::class);
     }
+
 }
