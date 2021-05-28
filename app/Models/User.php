@@ -63,7 +63,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function events() {
-        return $this->hasMany(Event::class);
+    public function getTasks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Task::class, 'user_id', 'id');
     }
 }

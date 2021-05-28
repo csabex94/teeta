@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'title',
+        'description',
+        'daily',
+        'push_email',
+        'completed',
+        'spec_date',
+        'remind_before_value',
+        'remind_before_option'
+    ];
 
     public function user() {
         return $this->belongsTo(Event::class);
