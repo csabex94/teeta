@@ -11,20 +11,24 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        $dailyTasks = Task::where([
-            ['daily', '=', 1],
-            ['user_id', '=', auth()->user()->id],
-            ['completed', '=', 0]
-        ])->get();
-        $specDateTasks = Task::where('spec_date', '=', Carbon::today())->where([
-            ['user_id', '=', auth()->user()->id],
-            ['completed', '=', 0],
-            ['daily', '=', 0]
-        ])->get();
+        $dailyTasks = Task::where('daily',1)->get();
+        $specDateTasks = Task::whereDate('spec_date', Carbon::today())->where('completed', 0)->get();
+        $daily = array();
 
+        foreach ($dailyTasks as $task)
+        {
+            if ($task->completed == 1) {
+                if ($task->completed_at < Carbon::today()) {
+                    array_push($daily, $task);
+                }
+            } else {
+                array_push($daily, $task);
+            }
+        }
 
-        return Inertia::render('Dashboard',[
-            'tasks' => array_merge($specDateTasks->toArray(), $dailyTasks->toArray())
+        return Inertia::render('Dashboard', [
+            'tasks' => array_merge($daily, $specDateTasks->toArray()),
+            'upcomingTasks' => []
         ]);
     }
 }

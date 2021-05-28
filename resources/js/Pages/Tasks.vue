@@ -68,8 +68,8 @@
                         <span v-else>Daily</span>
 
                         <span class="block text-sm text-green-400" v-if="task.remind_before_option && task.remind_before_value && task.remind_before_value != 'Remind me before'">
-                        Remind before: {{ task.remind_before_value }} {{ task.remind_before_option }}
-                    </span>
+                            Remind before: {{ task.remind_before_value }} {{ task.remind_before_option }}
+                        </span>
                     </div>
 
                     <div class="flex items-end">

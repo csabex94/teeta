@@ -24,11 +24,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+
         'first_name',
         'last_name',
         'email',
         'password',
-        'birthday'
+        'birthday',
+        'is_admin',
+        'name',
+        'email',
+        'password',
+
     ];
 
     /**
@@ -51,7 +57,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+
         'birthday' => 'datetime'
+
     ];
 
     /**
@@ -63,7 +71,7 @@ class User extends Authenticatable
         'profile_photo_path',
     ];
 
-    public function getTasks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function getTasks()
     {
         return $this->hasMany(\App\Models\Task::class, 'user_id', 'id');
     }

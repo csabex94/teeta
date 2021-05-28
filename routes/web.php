@@ -19,6 +19,7 @@ use Inertia\Inertia;
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
+
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     //Tasks
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
@@ -28,6 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::post('/create-task', [TaskController::class, 'store'])->name('create.task.post');
     Route::put('/update-task', [TaskController::class, 'updateTask'])->name('update.task');
     Route::delete('/delete-task', [TaskController::class, 'deleteTask'])->name('delete.task');
+    // Update Task
+    Route::put('/update-task', [TaskController::class, 'updateTask'])->name('update.task');
+    // Complete Task
     Route::put('/complete-task', [TaskController::class, 'completeTask'])->name('complete.task');
 
     //Events
